@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/eb81161b82644c6c94272251122a32ae/artifacts
+end_time: 1749403114880
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: eb81161b82644c6c94272251122a32ae
+run_name: RandomForest_Retrain
+run_uuid: eb81161b82644c6c94272251122a32ae
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749403101583
+status: 4
+tags: []
+user_id: Rizka Firdausy N
