@@ -46,8 +46,3 @@ with mlflow.start_run(run_name="RandomForest_Retrain"):
     print(f"Precision: {precision}")
     print(f"Recall: {recall}")
     print(f"F1 Score: {f1}")
-    # Ensure server runs"# Workflow trigger" 
-"# Trigger fix" 
-"# Workflow trigger" 
-"# Trigger fix" 
-"# Trigger fix" 
