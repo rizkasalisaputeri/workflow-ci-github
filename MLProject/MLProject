@@ -1,0 +1,5 @@
+name: Workflow-CI-Rizka-Salisa
+
+entry_points:
+  main:
+    command: "python modelling.py"
