@@ -7,8 +7,17 @@ jobs:
   train:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up job
+        run: echo "Setting up job"
+
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      - name: Set up Python 3.12.7
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12.7
+
       - name: Set up Conda
         uses: conda-incubator/setup-miniconda@v2
         with:
@@ -16,15 +25,28 @@ jobs:
           environment-file: MLProject/conda.yaml
           activate-environment: mlflow-env
           auto-activate-base: false
-      - name: Install MLflow
-        run: pip install mlflow
-      - name: Run MLflow Project
+
+      - name: Check Env
+        run: conda info --envs
+
+      - name: Install dependencies
+        run: conda env update --file MLProject/conda.yaml --name mlflow-env
+
+      - name: Set MLflow Tracking URI
+        run: mlflow server --backend-store-uri ./mlruns --default-artifact-root ./mlruns --host 0.0.0.0 --port 5000 &
+
+      - name: Install Python dependencies
+        run: pip install -r MLProject/requirements.txt
+
+      - name: Run mlflow project
         working-directory: MLProject
         env:
           MLFLOW_CONDA_RUN_COMMAND: "conda run"
         run: mlflow run . --entry-point main --env-manager=local
-      - name: Upload artifacts
+
+      - name: Upload to GitHub
         uses: actions/upload-artifact@v4
         with:
           name: mlflow-artifacts
           path: MLProject/mlruns/
+          if-no-files-found: error
