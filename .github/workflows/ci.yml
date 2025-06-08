@@ -36,15 +36,16 @@ jobs:
         run: |
           source $CONDA/etc/profile.d/conda.sh
           conda activate mlflow-env
-          pip install mlflow==2.19.0  # Pastikan versi sama
+          pip install mlflow==2.19.0  # Sinkronkan versi dengan mlflow-skinny
 
-      - name: Set MLflow Tracking URI and Start Server
+      - name: Start MLflow Server and Set Tracking URI
         run: |
           source $CONDA/etc/profile.d/conda.sh
           conda activate mlflow-env
           mlflow server --backend-store-uri ./mlruns --default-artifact-root ./mlruns --host 0.0.0.0 --port 5001 &
           sleep 5  # Tunggu server siap
           export MLFLOW_TRACKING_URI=http://localhost:5001
+          echo "MLFLOW_TRACKING_URI is set to $MLFLOW_TRACKING_URI"
 
       - name: Run mlflow project
         run: |

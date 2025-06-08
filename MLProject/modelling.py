@@ -5,8 +5,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-# Load preprocessed dataset
-df = pd.read_csv("heart_processed.csv")
+# Load preprocessed dataset (sesuaikan path jika perlu)
+df = pd.read_csv("heart_processed.csv")  # Pastikan file ada di MLProject/
 
 # Separate features and target
 X = df.drop('HeartDisease', axis=1)
@@ -14,9 +14,6 @@ y = df['HeartDisease']
 
 # Split data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Enable MLflow autologging
-mlflow.sklearn.autolog()
 
 # Start MLflow run
 with mlflow.start_run(run_name="RandomForest_Retrain"):
