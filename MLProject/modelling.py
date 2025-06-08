@@ -48,4 +48,4 @@ with mlflow.start_run(run_name="RandomForest_Retrain"):
     print(f"Accuracy: {accuracy}")
     print(f"Precision: {precision}")
     print(f"Recall: {recall}")
-    print(f"F1 Score: {f1}")
+    print(f"F1 Score: {f1}")"# Ensure server runs" 
