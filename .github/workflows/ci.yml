@@ -36,9 +36,9 @@ jobs:
         run: |
           source $CONDA/etc/profile.d/conda.sh
           conda activate mlflow-env
-          pip install mlflow==2.19.0  # Pastikan versi sama dengan mlflow-skinny
+          pip install mlflow==2.19.0  # Pastikan versi sama
 
-      - name: Set MLflow Tracking URI
+      - name: Set MLflow Tracking URI and Start Server
         run: |
           source $CONDA/etc/profile.d/conda.sh
           conda activate mlflow-env
