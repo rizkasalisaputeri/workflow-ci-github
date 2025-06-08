@@ -36,6 +36,15 @@ with mlflow.start_run(run_name="RandomForest_Retrain"):
     recall = recall_score(y_test, y_pred)
     f1 = f1_score(y_test, y_pred)
 
+    # Log metrics
+    mlflow.log_metric("accuracy", accuracy)
+    mlflow.log_metric("precision", precision)
+    mlflow.log_metric("recall", recall)
+    mlflow.log_metric("f1_score", f1)
+
+    # Log model explicitly
+    mlflow.sklearn.log_model(model, "model")
+
     print(f"Accuracy: {accuracy}")
     print(f"Precision: {precision}")
     print(f"Recall: {recall}")
