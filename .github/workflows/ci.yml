@@ -32,18 +32,21 @@ jobs:
       - name: Install dependencies
         run: conda env update --file MLProject/conda.yaml --name mlflow-env --prune
 
+      - name: Install MLflow in Conda
+        run: conda run -n mlflow-env pip install mlflow
+
       - name: Set MLflow Tracking URI
-        run: mlflow server --backend-store-uri ./mlruns --default-artifact-root ./mlruns --host 0.0.0.0 --port 5001 &
+        run: conda run -n mlflow-env mlflow server --backend-store-uri ./mlruns --default-artifact-root ./mlruns --host 0.0.0.0 --port 5001 &
 
       - name: Run mlflow project
         working-directory: MLProject
         env:
-          MLFLOW_CONDA_RUN_COMMAND: "conda run"
+          MLFLOW_CONDA_RUN_COMMAND: "conda run -n mlflow-env"
           MLFLOW_TRACKING_URI: "http://localhost:5001"
         run: mlflow run . --entry-point main --env-manager=local
 
       - name: Install Python dependencies
-        run: pip install -r MLProject/requirements.txt
+        run: conda run -n mlflow-env pip install -r MLProject/requirements.txt
 
       - name: Upload to GitHub
         uses: actions/upload-artifact@v4
