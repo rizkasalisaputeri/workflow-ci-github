@@ -5,9 +5,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-# Set MLflow tracking URI to local directory
-mlflow.set_tracking_uri("./mlruns")
-
 # Load preprocessed dataset
 df = pd.read_csv("heart_processed.csv")
 
@@ -48,4 +45,5 @@ with mlflow.start_run(run_name="RandomForest_Retrain"):
     print(f"Accuracy: {accuracy}")
     print(f"Precision: {precision}")
     print(f"Recall: {recall}")
-    print(f"F1 Score: {f1}")"# Ensure server runs" 
+    print(f"F1 Score: {f1}")
+    # Ensure server runs"# Workflow trigger" 
