@@ -1,6 +1,8 @@
 name: Train ML Model
 on:
   push:
+    branches:
+      - main  # Ganti dengan branch defaultmu
     paths:
       - 'MLProject/**'
 jobs:
