@@ -6,8 +6,8 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import mlflow
 import mlflow.sklearn
 
-# Set MLflow tracking URI
-mlflow.set_tracking_uri("http://127.0.0.1:5000")
+# Set MLflow tracking URI (diatur di env di ci.yml, jadi tidak perlu di sini)
+# mlflow.set_tracking_uri("http://127.0.0.1:5000")  # Hapus baris ini dari kode
 
 # Load preprocessed dataset
 df = pd.read_csv("heart_processed.csv")
