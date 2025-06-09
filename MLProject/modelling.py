@@ -6,7 +6,6 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import mlflow
 import mlflow.sklearn
 import logging
-import os
 
 # Konfigurasi logging
 logging.basicConfig(level=logging.INFO)
@@ -49,15 +48,8 @@ with mlflow.start_run(run_name="RandomForest_Basic"):
         
         # Log model
         logger.info("Logging model...")
-        model_info = mlflow.sklearn.log_model(model, "random_forest_model")
-        logger.info(f"Model logged at: {model_info.model_uri}")
-        # Verifikasi direktori
-        artifact_path = os.path.join(mlflow.get_artifact_uri(), "random_forest_model")
-        logger.info(f"Checking artifact path: {artifact_path}")
-        if os.path.exists(artifact_path):
-            logger.info("Artifact directory exists.")
-        else:
-            logger.warning("Artifact directory does not exist!")
+        mlflow.sklearn.log_model(model, "random_forest_model")
+        logger.info("Model logged successfully.")
     except Exception as e:
         logger.error(f"Error occurred: {e}")
         raise
