@@ -45,12 +45,12 @@ jobs:
           conda activate mlflow-env
           mlflow experiments create --experiment-name "Heart Failure Prediction Training" || mlflow experiments set-experiment --experiment-name "Heart Failure Prediction Training"
 
-      - name: Run mlflow project with debug
+      - name: Run mlflow project
         run: |
           source $CONDA/etc/profile.d/conda.sh
           conda activate mlflow-env
           cd MLProject
-          mlflow run . --entry-point main --env-manager=local --experiment-name "Heart Failure Prediction Training" --verbose
+          mlflow run . --entry-point main --env-manager=local --experiment-name "Heart Failure Prediction Training"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
