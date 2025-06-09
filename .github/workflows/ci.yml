@@ -8,7 +8,7 @@ jobs:
   retrain:
     runs-on: ubuntu-latest
     steps:
-      # Langkah 1: Checkout kode dari repository
+      # Langkah 1: Checkout kode
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -21,10 +21,14 @@ jobs:
 
       # Langkah 3: Install MLflow ke dalam environment base Conda
       - name: Install MLflow
+        # TAMBAHKAN BARIS INI untuk memastikan shell sudah terkonfigurasi Conda
+        shell: bash -l {0}
         run: pip install mlflow
 
       # Langkah 4: Jalankan MLflow Project
       - name: Run MLflow Project
+        # TAMBAHKAN BARIS INI juga untuk memastikan shell mengenali 'activate'
+        shell: bash -l {0}
         working-directory: ./MLProject
         run: mlflow run .
 
