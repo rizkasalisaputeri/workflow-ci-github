@@ -35,8 +35,9 @@ jobs:
         run: |
           source $CONDA/etc/profile.d/conda.sh
           conda activate mlflow-env
+          mkdir -p mlruns  # Pastikan direktori mlruns ada
           mlflow server --backend-store-uri ./mlruns --default-artifact-root ./mlruns --host 0.0.0.0 --port 5000 &
-          sleep 15  # Tambah waktu tunggu agar server siap
+          sleep 15  # Tunggu server siap
 
       - name: Run mlflow project
         run: |

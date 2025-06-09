@@ -6,7 +6,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import mlflow
 import mlflow.sklearn
 
-# Set MLflow tracking URI (gunakan port lokal untuk uji)
+# Set MLflow tracking URI
 mlflow.set_tracking_uri("http://127.0.0.1:5000")
 
 # Load preprocessed dataset
@@ -22,26 +22,30 @@ model = RandomForestClassifier(random_state=42)
 
 # Mulai MLflow run
 with mlflow.start_run(run_name="RandomForest_Basic"):
-    # Latih model
-    model.fit(X_train, y_train)
-    
-    # Prediksi
-    y_pred = model.predict(X_test)
-    
-    # Hitung metrik
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred)
-    recall = recall_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred)
-    
-    # Log metrik secara manual
-    mlflow.log_metric("accuracy", accuracy)
-    mlflow.log_metric("precision", precision)
-    mlflow.log_metric("recall", recall)
-    mlflow.log_metric("f1_score", f1)
-    
-    # Log model
-    mlflow.sklearn.log_model(model, "random_forest_model")
+    try:
+        # Latih model
+        model.fit(X_train, y_train)
+        
+        # Prediksi
+        y_pred = model.predict(X_test)
+        
+        # Hitung metrik
+        accuracy = accuracy_score(y_test, y_pred)
+        precision = precision_score(y_test, y_pred)
+        recall = recall_score(y_test, y_pred)
+        f1 = f1_score(y_test, y_pred)
+        
+        # Log metrik
+        mlflow.log_metric("accuracy", accuracy)
+        mlflow.log_metric("precision", precision)
+        mlflow.log_metric("recall", recall)
+        mlflow.log_metric("f1_score", f1)
+        
+        # Log model
+        mlflow.sklearn.log_model(model, "random_forest_model")
+        print("Model logged successfully.")
+    except Exception as e:
+        print(f"Error logging model: {e}")
     
     print(f"Accuracy: {accuracy:.4f}")
     print(f"Precision: {precision:.4f}")
