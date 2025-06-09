@@ -12,23 +12,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Setup environment Python
+      # Langkah 2: Setup environment Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      # Install MLflow
+      # Langkah 3: Install MLflow
       - name: Install MLflow
         run: pip install mlflow
 
-      # Jalankan MLflow Project
+      # Langkah 4: Jalankan MLflow Project (BAGIAN YANG DIPERBAIKI)
       - name: Run MLflow Project
-        run: mlflow run ./project
+        # Pindahkan direktori kerja ke dalam folder 'project' sebelum menjalankan perintah
+        working-directory: ./project 
+        # Jalankan MLflow untuk direktori saat ini (.)
+        run: mlflow run . 
 
-      # Upload Artefak 
+      # Langkah 5: Upload Artefak
       - name: Upload mlruns as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: mlruns-output 
+          name: mlruns-output
+          # Path sekarang relatif dari root, jadi kita tetap menggunakan 'mlruns/'
+          # karena folder itu akan dibuat di root oleh MLflow.
           path: mlruns/
