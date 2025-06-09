@@ -1,1 +1,5 @@
-git commit -m "Add CI workflow for Kriteria 3"
+name: MLProject
+
+entry_points:
+  main:
+    command: "python modelling.py"
