@@ -52,7 +52,7 @@ jobs:
           source $CONDA/etc/profile.d/conda.sh
           conda activate mlflow-env
           cd MLProject
-          mlflow run . --entry-point main --experiment-name "Heart Failure Prediction Training" --env-manager=local
+          mlflow run . --entry-point main --env-manager=local
 
       - name: Install Python dependencies
         run: |
