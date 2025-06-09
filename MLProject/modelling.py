@@ -9,9 +9,6 @@ import mlflow.sklearn
 # Set MLflow tracking URI
 mlflow.set_tracking_uri("http://127.0.0.1:5000")
 
-# Create a new MLflow Experiment
-mlflow.set_experiment("Heart Failure Prediction Training")
-
 # Load preprocessed dataset
 df = pd.read_csv("heart_processed.csv")
 X = df.drop('HeartDisease', axis=1)
