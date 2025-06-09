@@ -50,7 +50,7 @@ jobs:
     - name: Run mlflow project
       run: |
         sleep 5 # Tunggu server MLflow start
-        mlflow run . --entry-point main
+        python modelling.py
 
     # 8. Install Python dependencies (opsional, sudah di atas)
     - name: Install additional Python dependencies
