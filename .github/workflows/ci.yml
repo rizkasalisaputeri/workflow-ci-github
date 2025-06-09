@@ -30,14 +30,10 @@ jobs:
         working-directory: ./MLProject
         run: mlflow run .
 
-      # --- LANGKAH DEBUGGING BARU ---
-      # Tampilkan semua file dan folder secara rekursif
-      - name: Check directory contents
-        run: ls -R
-
-      # Langkah 5: Upload Artefak
+      # Langkah 5: Upload Artefak (DENGAN PATH YANG DIPERBAIKI)
       - name: Upload mlruns as artifact
         uses: actions/upload-artifact@v4
         with:
           name: mlruns-output
-          path: mlruns/
+          # PERBAIKAN: Beri tahu action untuk mencari mlruns di dalam folder MLProject
+          path: MLProject/mlruns/
