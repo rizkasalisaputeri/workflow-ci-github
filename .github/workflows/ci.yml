@@ -9,9 +9,6 @@ jobs:
     env:
       MLFLOW_TRACKING_URI: http://127.0.0.1:5000
     steps:
-      - name: Set up job
-        run: echo "Setting up job"
-
       - name: Checkout Repository
         uses: actions/checkout@v3
 
@@ -19,9 +16,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12.7'
-
-      - name: Check Env
-        run: conda info --envs
 
       - name: Set up Conda
         uses: conda-incubator/setup-miniconda@v2
@@ -32,20 +26,17 @@ jobs:
           auto-activate-base: false
 
       - name: Install dependencies
-        run: conda env update --file MLProject/conda.yaml --name mlflow-env --prune
-
-      - name: Install MLflow in Conda
         run: |
           source $CONDA/etc/profile.d/conda.sh
           conda activate mlflow-env
-          pip install mlflow==2.19.0
+          pip install mlflow==2.19.0 scikit-learn pandas numpy
 
       - name: Start MLflow Server
         run: |
           source $CONDA/etc/profile.d/conda.sh
           conda activate mlflow-env
           mlflow server --backend-store-uri ./mlruns --default-artifact-root ./mlruns --host 0.0.0.0 --port 5000 &
-          sleep 10  # Tunggu server siap
+          sleep 15  # Tambah waktu tunggu agar server siap
 
       - name: Run mlflow project
         run: |
@@ -54,13 +45,7 @@ jobs:
           cd MLProject
           mlflow run . --entry-point main --env-manager=local
 
-      - name: Install Python dependencies
-        run: |
-          source $CONDA/etc/profile.d/conda.sh
-          conda activate mlflow-env
-          pip install -r MLProject/requirements.txt
-
-      - name: Upload to GitHub
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: mlflow-artifacts

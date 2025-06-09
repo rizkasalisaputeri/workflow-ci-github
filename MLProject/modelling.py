@@ -6,7 +6,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import mlflow
 import mlflow.sklearn
 
-# Set MLflow tracking URI
+# Set MLflow tracking URI (gunakan port lokal untuk uji)
 mlflow.set_tracking_uri("http://127.0.0.1:5000")
 
 # Load preprocessed dataset
