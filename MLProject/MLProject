@@ -1,4 +1,6 @@
-name: MLProject
+name: HeartFailureCI
+
+conda_file: conda.yaml
 
 entry_points:
   main:

@@ -1,11 +1,10 @@
-name: mlflow-env
+name: HeartFailureCI
 channels:
-  - conda-forge
+  - defaults
 dependencies:
-  - python=3.12.7
+  - python=3.9
   - pip
-  - scikit-learn
-  - pandas
-  - numpy
   - pip:
-      - mlflow==2.19.0
+    - mlflow
+    - scikit-learn==1.2.2 # Mengunci versi lebih baik
+    - pandas
