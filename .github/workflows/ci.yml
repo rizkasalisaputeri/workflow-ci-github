@@ -35,22 +35,22 @@ jobs:
         run: |
           source $CONDA/etc/profile.d/conda.sh
           conda activate mlflow-env
-          mkdir -p mlruns  # Pastikan direktori mlruns ada
+          mkdir -p mlruns
           mlflow server --backend-store-uri ./mlruns --default-artifact-root ./mlruns --host 0.0.0.0 --port 5000 &
-          sleep 15  # Tunggu server siap
+          sleep 15
 
       - name: Create MLflow Experiment
         run: |
           source $CONDA/etc/profile.d/conda.sh
           conda activate mlflow-env
-          mlflow experiments create --experiment-name "Heart Failure Prediction Training"
+          mlflow experiments create --experiment-name "Heart Failure Prediction Training" || mlflow experiments set-experiment --experiment-name "Heart Failure Prediction Training"
 
-      - name: Run mlflow project
+      - name: Run mlflow project with debug
         run: |
           source $CONDA/etc/profile.d/conda.sh
           conda activate mlflow-env
           cd MLProject
-          mlflow run . --entry-point main --env-manager=local --experiment-name "Heart Failure Prediction Training"
+          mlflow run . --entry-point main --env-manager=local --experiment-name "Heart Failure Prediction Training" --verbose
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

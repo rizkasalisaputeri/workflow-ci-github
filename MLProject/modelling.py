@@ -5,9 +5,11 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import mlflow
 import mlflow.sklearn
+import logging
 
-# Set MLflow tracking URI (diatur di env di ci.yml, jadi tidak perlu di sini)
-# mlflow.set_tracking_uri("http://127.0.0.1:5000")  # Hapus baris ini dari kode
+# Konfigurasi logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Load preprocessed dataset
 df = pd.read_csv("heart_processed.csv")
@@ -24,9 +26,11 @@ model = RandomForestClassifier(random_state=42)
 with mlflow.start_run(run_name="RandomForest_Basic"):
     try:
         # Latih model
+        logger.info("Training model...")
         model.fit(X_train, y_train)
         
         # Prediksi
+        logger.info("Making predictions...")
         y_pred = model.predict(X_test)
         
         # Hitung metrik
@@ -36,18 +40,21 @@ with mlflow.start_run(run_name="RandomForest_Basic"):
         f1 = f1_score(y_test, y_pred)
         
         # Log metrik
+        logger.info("Logging metrics...")
         mlflow.log_metric("accuracy", accuracy)
         mlflow.log_metric("precision", precision)
         mlflow.log_metric("recall", recall)
         mlflow.log_metric("f1_score", f1)
         
         # Log model
+        logger.info("Logging model...")
         mlflow.sklearn.log_model(model, "random_forest_model")
-        print("Model logged successfully.")
+        logger.info("Model logged successfully.")
     except Exception as e:
-        print(f"Error logging model: {e}")
+        logger.error(f"Error occurred: {e}")
+        raise  # Lempar error agar terlihat di log
     
-    print(f"Accuracy: {accuracy:.4f}")
-    print(f"Precision: {precision:.4f}")
-    print(f"Recall: {recall:.4f}")
-    print(f"F1 Score: {f1:.4f}")
+    logger.info(f"Accuracy: {accuracy:.4f}")
+    logger.info(f"Precision: {precision:.4f}")
+    logger.info(f"Recall: {recall:.4f}")
+    logger.info(f"F1 Score: {f1:.4f}")
