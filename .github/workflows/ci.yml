@@ -24,9 +24,8 @@ jobs:
 
       # Langkah 4: Jalankan MLflow Project (BAGIAN YANG DIPERBAIKI)
       - name: Run MLflow Project
-        # Pindahkan direktori kerja ke dalam folder 'project' sebelum menjalankan perintah
-        working-directory: ./project 
-        # Jalankan MLflow untuk direktori saat ini (.)
+        # PERBAIKAN: Ubah 'project' menjadi 'MLProject' agar sesuai dengan nama folder Anda
+        working-directory: ./MLProject 
         run: mlflow run . 
 
       # Langkah 5: Upload Artefak
@@ -34,6 +33,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: mlruns-output
-          # Path sekarang relatif dari root, jadi kita tetap menggunakan 'mlruns/'
-          # karena folder itu akan dibuat di root oleh MLflow.
           path: mlruns/
