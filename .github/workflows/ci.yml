@@ -12,21 +12,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Langkah 2: Setup environment Python
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      # Langkah 2: Setup environment Conda
+      - name: Setup Conda Environment
+        uses: conda-incubator/setup-miniconda@v3
         with:
           python-version: '3.9'
+          auto-update-conda: true
 
-      # Langkah 3: Install MLflow
+      # Langkah 3: Install MLflow ke dalam environment base Conda
       - name: Install MLflow
         run: pip install mlflow
 
-      # Langkah 4: Jalankan MLflow Project (BAGIAN YANG DIPERBAIKI)
+      # Langkah 4: Jalankan MLflow Project
       - name: Run MLflow Project
-        # PERBAIKAN: Ubah 'project' menjadi 'MLProject' agar sesuai dengan nama folder Anda
-        working-directory: ./MLProject 
-        run: mlflow run . 
+        working-directory: ./MLProject
+        run: mlflow run .
 
       # Langkah 5: Upload Artefak
       - name: Upload mlruns as artifact
